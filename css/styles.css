@@ -1,4 +1,6 @@
 body {
+  align-items: center;
+  justify-content: center;
   font-family: 'Arial', sans-serif;
   background-color: #f0f0f0;
   margin: 0;
@@ -6,12 +8,32 @@ body {
 }
 
 h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #333;
 }
+
+#restart{
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #result .green {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #2ecc71;
 }
 
 #result .red {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #e74c3c;
 }
