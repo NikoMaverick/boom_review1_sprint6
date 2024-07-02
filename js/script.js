@@ -1,56 +1,52 @@
-//Capturar HTML. OK
-// Generar un numero aleatorio entre 1 y 3. OK
-// Cuenta atras de 5 segundos. OK
-// Comparar el el numero aleatorio con el del usuario.
+// capturar elementos --> OK
+// contador de 5 segundos --> OK
+// seleccionar un número --> OK
+// compararlo con otro número aleatorio
+// a los 5 segundos que aparezca el núemro aleatroio con el número elegido
+// botón que reinicie
 
-const countdown = document.querySelector('countdown');
-let result = document.querySelector('result');
-const button = document.querySelector('restart');
-let rango;
-const sms1 = "";
-const sms2 = "";
+let numberSelect = 0
 
-/*
-const randomNumber = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
+const userInput = document.getElementById("userInput"),
+countdown = document.getElementById("countdown"),
+result = document.getElementById("result"),
+restart = document.getElementById("restart")
 
+userInput.addEventListener("change", () => {
+  numberSelect = parseInt(userInput.value)
+})
 
-const numberOne = new Promise((resolve) => {
+function iniciarContador () {
+  let segundos = 5;
+  setInterval(() => {
+    if(segundos >= 0) {
+      countdown.innerText = segundos
+    }
+    segundos--
+  }, 1000)
+}
+
+const getPromise = () => {
+  const response = new Promise(resolve => {
     setTimeout(() => {
-        rango = randomNumber(1, 3);
-        resolve(rango);
-        }, 5000);
-        });
-        */
-       
-const number1 = Math.floor(Math.random() * 3 - 1 + 1) + 1;
-let userInput = 0;
-
-function bombaGame() {
-    userInput = parseInt(document.querySelector('userInput').value);//Combertimos el valor del elemento en texto.
-    if (userInput !== number1){
-        sms2 = `${userInput}La bomba ha estallado`
-    }
-    if(userInput == number1){
-        sms1 = `${userInput}¡Has salvado el mundo!`
-    }
+      const randomNumber = Math.floor(Math.random() * 3) + 1,
+      win = `
+        <h2>¡Has salvado el mundo!</h2>
+        <p>Tu número ${numberSelect} es igual al número ${randomNumber}</p>
+      `,
+      lose = `
+        <h2>¡Ha explotado la bomba!</h2>
+        <p>Tu número ${numberSelect} no es igual al número ${randomNumber}</p>
+      `
+      numberSelect === randomNumber ? resolve(win) : resolve(lose)
+    }, 6000)
+  })
+  .then(data => result.innerHTML = data)
 }
 
+restart.addEventListener("click", () => {
+  location.reload()
+})
 
-
-/*
-
-//Posible cuenta regresiva 
-
-window.onload = updateClock;
-let totalTime = 5;
-function updateClock() {
-document.getElementById('countdown').innerHTML = totalTime;
-if(totalTime==1){
-alert('La bomba ha estallado');
-}
-else{
-alert('¡Has salvado el mundo!');
-setTimeout("updateClock()",5000);
-}
-}*/
+getPromise()
+iniciarContador()
